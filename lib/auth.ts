@@ -21,7 +21,7 @@ export const config = {
         if (user) {
           const isMatch = await bcrypt.compare(
             credentials.password as string,
-            user.passwprd
+            user.password
           );
           if (isMatch) {
             return user;
@@ -76,7 +76,6 @@ export const config = {
     },
   },
 };
-
 export const {
   handlers: { GET, POST },
   auth,
