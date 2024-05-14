@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function CartDetails() {
   const router = useRouter();
-  const { items, itemsPrice, descrease, increase } = useCartService();
+  const { items, itemsPrice, decrease, increase } = useCartService();
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function CartDetails() {
                       <button
                         className="btn"
                         type="button"
-                        onClick={() => descrease(item)}
+                        onClick={() => decrease(item)}
                       >
                         -
                       </button>
