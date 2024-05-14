@@ -15,7 +15,24 @@ export default function OrderDetails({
   orderId: string;
   paypalClientId: string;
 }) {
+  const { trigger: deliverOrder, isMutating: isDelivering } = useSWRMutation(
+    `/api/orders/${orderId}`,
+    async (url) => {
+      const res = await fetch(`/api/admin/orders/${orderId}/deliver`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      res.ok
+        ? toast.success("Order delivered successfully")
+        : toast.error(data.message);
+    }
+  );
+
   const { data: session } = useSession();
+  console.log(session);
   function createPayPalOrder() {
     return fetch(`/api/orders/${orderId}/create-paypal-order`, {
       method: "POST",
@@ -173,6 +190,20 @@ export default function OrderDetails({
                         onApprove={onApprovePayPalOrder}
                       />
                     </PayPalScriptProvider>
+                  </li>
+                )}
+                {session?.user.isAdmin && (
+                  <li>
+                    <button
+                      className="btn w-full my-2"
+                      onClick={() => deliverOrder()}
+                      disabled={isDelivering}
+                    >
+                      {isDelivering && (
+                        <span className="loading loading-spinner"></span>
+                      )}
+                      Mark as delivered
+                    </button>
                   </li>
                 )}
               </ul>
