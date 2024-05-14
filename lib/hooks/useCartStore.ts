@@ -9,10 +9,10 @@ type Cart = {
   taxPrice: number;
   shippingPrice: number;
   totalPrice: number;
+
   paymentMethod: string;
   shippingAddress: ShippingAddress;
 };
-
 const initialState: Cart = {
   items: [],
   itemsPrice: 0,
@@ -70,7 +70,7 @@ export default function useCartService() {
         totalPrice,
       });
     },
-    descrease: (item: OrderItem) => {
+    decrease: (item: OrderItem) => {
       const exist = items.find((x) => x.slug === item.slug);
       if (!exist) return;
       const updatedCartItems =
@@ -89,14 +89,20 @@ export default function useCartService() {
         totalPrice,
       });
     },
-    saveShippingAddress: (shippingAddress: ShippingAddress) => {
-      cartStore.setState({ shippingAddress });
+    saveShippingAddrress: (shippingAddress: ShippingAddress) => {
+      cartStore.setState({
+        shippingAddress,
+      });
     },
     savePaymentMethod: (paymentMethod: string) => {
-      cartStore.setState({ paymentMethod });
+      cartStore.setState({
+        paymentMethod,
+      });
     },
     clear: () => {
-      cartStore.setState({ items: [] });
+      cartStore.setState({
+        items: [],
+      });
     },
     init: () => cartStore.setState(initialState),
   };
