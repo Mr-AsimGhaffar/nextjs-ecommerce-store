@@ -58,9 +58,9 @@ The application supports **product browsing, category-based filtering, a respons
 
 ---
 
-## 📷 Screenshots / Demo
+## Demo
 
-📌 **[Add Screenshots, GIFs, or a Video Demo of the E-Commerce Web App]**  
+📌 https://www.loom.com/share/e46becb1bd8f48058d6981f4e27deeb9?sid=1fdebe2b-1f2e-4848-9ab7-61db3ddf4869
 
 ---
 
