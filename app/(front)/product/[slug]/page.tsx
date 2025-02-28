@@ -26,70 +26,76 @@ export default async function ProductDetails({
 }) {
   const product = await productService.getBySlug(params.slug);
   if (!product) {
-    return <div>Product not found</div>;
-  }
-  return (
-    <>
-      <div className="my-2">
-        <Link href="/">back to products</Link>
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl font-semibold">Product not found</h1>
       </div>
-      <div className="grid md:grid-cols-4 md:gap-3">
-        <div className="md:col-span-2">
+    );
+  }
+
+  return (
+    <div className="container mx-auto p-4">
+      {/* Back Link */}
+      <div className="mb-4">
+        <Link href="/" className="text-blue-500 hover:underline">
+          &larr; Back to products
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Product Image */}
+        <div className="lg:col-span-2">
           <Image
             src={product.image}
             alt={product.name}
             width={640}
             height={640}
-            sizes="100vw"
-            style={{ width: "100%", height: "auto" }}
-          ></Image>
+            className="w-full h-auto rounded-lg shadow-md"
+          />
         </div>
-        <div>
-          <ul className="space-y-4">
-            <li>
-              <h1 className="text-xl">{product.name}</h1>
-            </li>
-            <li>
-              {product.rating}of{product.numReviews}reviews
-            </li>
-            <li>{product.brand}</li>
-            <li>
-              <div className="divider"></div>
-            </li>
-            <li>
-              Description: <p>{product.description}</p>
-            </li>
-          </ul>
+
+        {/* Product Details */}
+        <div className="lg:col-span-1 space-y-4">
+          <h1 className="text-2xl font-semibold">{product.name}</h1>
+          <p className="text-gray-600">{product.brand}</p>
+          <p className="text-yellow-500 font-medium">
+            {product.rating} ⭐ ({product.numReviews} reviews)
+          </p>
+          <p className="text-gray-700">{product.description}</p>
         </div>
-        <div>
-          <div className="card bg-base-300 shadow-xl md-3 md:mt-0">
-            <div className="card-body">
-              <div className="mb-2 flex justify-between">
-                <div>Price</div>
-                <div>${product.price}</div>
-              </div>
-              <div className="mb-2 flex justify-between">
-                <div>Status</div>
-                <div>
-                  {product.countInStock > 0 ? "In stock" : "Unavailable"}
-                </div>
-              </div>
-              {product.countInStock !== 0 && (
-                <div className="card-actions justify-center">
-                  <AddtoCart
-                    item={{
-                      ...convertDocToObj(product),
-                      qty: 0,
-                      color: "",
-                      size: "",
-                    }}
-                  />
-                </div>
-              )}
-            </div>
+
+        {/* Pricing & Add to Cart */}
+        <div className="lg:col-span-1 p-6 rounded-lg shadow-md">
+          <div className="flex justify-between text-lg font-semibold mb-4">
+            <span>Price:</span>
+            <span className="text-green-600">€{product.price}</span>
           </div>
+
+          <div className="flex justify-between text-lg font-medium mb-4">
+            <span>Status:</span>
+            <span
+              className={`${
+                product.countInStock > 0 ? "text-green-600" : "text-red-500"
+              }`}
+            >
+              {product.countInStock > 0 ? "In Stock" : "Unavailable"}
+            </span>
+          </div>
+
+          {product.countInStock > 0 && (
+            <div className="mt-4">
+              <AddtoCart
+                item={{
+                  ...convertDocToObj(product),
+                  qty: 0,
+                  color: "",
+                  size: "",
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -9,8 +9,8 @@ import Header from "@/components/header/header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next Amazona V2",
-  description: "Modern ECommerce Website",
+  title: "Ride Darker",
+  description: "Rider Darker Website",
 };
 
 export default function RootLayout({
@@ -29,9 +29,7 @@ export default function RootLayout({
                 <Header />
                 {children}
                 <footer className="footer footer-center p-4 bg-base-300 text-base-content">
-                  <p>
-                    Copyright © 2023 - All right reserved by Next Amazona V2
-                  </p>
+                  <p>Copyright © 2025 - All right reserved by Rider Darker</p>
                 </footer>
               </div>
             </div>
